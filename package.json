@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "start": "node --experimental-modules index.js",
-    "dev": "nodemon index.js"
+    "dev": "nodemon index.js",
+    "safestart": "node --experimental-modules index.js"
   },
   "author": "",
   "license": "ISC",
