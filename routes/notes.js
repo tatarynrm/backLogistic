@@ -2,20 +2,17 @@ import express from "express";
 import {
   createNote,
   getNotes,
-  getNotesById,
+  getNoteById,
   deleteNoteById,
   updateNote,
 } from "../controllers/notes.js";
-import { verifyToken } from "../middleware/auth.js";
+import checkAuth from "../middleware/checkAuth.js";
 const router = express.Router();
 
-router.route("/").post(createNote);
+router.route("/").post(checkAuth, createNote);
 router.route("/").get(getNotes);
-router.route("/:id").get(getNotesById);
-router.route("/:id").delete(deleteNoteById);
-router.route("/:id").put(updateNote);
+router.route("/:id").get(getNoteById);
+router.route("/:id").delete(checkAuth, deleteNoteById);
+router.route("/:id").put(checkAuth, updateNote);
 
-// доступ з авторизацією
-// router.route("/").post(verifyToken, createNote);
-// router.route("/").get(verifyToken, getNotes);
 export default router;

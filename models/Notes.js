@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { mongo } from "mongoose";
 
 const NotesSchema = new mongoose.Schema(
   {
@@ -32,10 +32,16 @@ const NotesSchema = new mongoose.Schema(
     cargoOwner: {
       type: String,
     },
+    note: {
+      type: String,
+    },
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
   },
   { timestamps: true }
 );
 
-const Notes = mongoose.model("Notes", NotesSchema);
-
-export default Notes;
+export default mongoose.model("Notes", NotesSchema);
