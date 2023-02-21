@@ -10,6 +10,7 @@ import cors from "cors";
 // import { register, login, getMe } from "./controllers/auth.js";
 import authRoutes from "./routes/auth.js";
 import notesRouter from "./routes/notes.js";
+import userRoutes from "./routes/user.js";
 
 const app = express();
 
@@ -20,7 +21,7 @@ app.use(express.json());
 const PORT = process.env.PORT || 8800;
 
 app.use("/auth", authRoutes);
-// app.use("/users", userRoutes);
+app.use("/users", userRoutes);
 app.use("/notes", notesRouter);
 
 async function start() {
