@@ -109,3 +109,17 @@ export const updateNote = async (req, res) => {
     res.status(404).json({ message: err.message });
   }
 };
+
+export const changeStatus = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const newNote = {
+      status: req.body.status,
+    };
+
+    const note = await Notes.findByIdAndUpdate(id, { $set: newNote });
+    res.status(200).json(note);
+  } catch (err) {
+    res.status(404).json({ message: err.message });
+  }
+};
