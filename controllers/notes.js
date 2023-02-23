@@ -31,6 +31,7 @@ export const createNote = async (req, res) => {
       car,
       carOwner,
       cargoOwner,
+      status,
     } = req.body;
 
     const newNote = new Notes({
@@ -45,6 +46,7 @@ export const createNote = async (req, res) => {
       cargoOwner,
       note: "",
       user: req.userId,
+      status: "active",
     });
     const savedNote = await newNote.save();
 

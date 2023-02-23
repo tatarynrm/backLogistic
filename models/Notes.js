@@ -35,6 +35,9 @@ const NotesSchema = new mongoose.Schema(
     note: {
       type: String,
     },
+    status: {
+      type: String,
+    },
     user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
