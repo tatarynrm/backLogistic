@@ -123,3 +123,42 @@ export const changeStatus = async (req, res) => {
     res.status(404).json({ message: err.message });
   }
 };
+
+export const createDuplicateNote = async (req, res) => {
+  try {
+    const {
+      date,
+      cityFrom,
+      cityTo,
+      price,
+      money,
+      driver,
+      car,
+      carOwner,
+      cargoOwner,
+      status,
+    } = req.body;
+
+    const newNote = new Notes({
+      date,
+      cityFrom,
+      cityTo,
+      price,
+      money,
+      driver,
+      car,
+      carOwner,
+      cargoOwner,
+      note: "",
+      user: req.userId,
+      status: "active",
+    });
+    const savedNote = await newNote.save();
+
+    res.status(201).json(savedNote);
+  } catch (err) {
+    res.status(500).json({
+      message: "Не вдалось створити нотатку",
+    });
+  }
+};
