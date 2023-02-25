@@ -102,6 +102,7 @@ bot.hears("Дохід", async (ctx) => {
   console.log(money);
   await ctx.replyWithHTML(`Загальний заробіток становить: ${money} грн`);
 });
+// ok
 
 bot.hears("Заявки не оплачені", async (ctx) => {
   const newNote = await Notes.find({ status: "undone" });
