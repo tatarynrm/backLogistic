@@ -25,7 +25,7 @@ app.use("/notes", notesRouter);
 // External API
 app.use("/lardi", cargoRoutes);
 //
-async function start() {
+const start = async () => {
   try {
     mongoose.set("strictQuery", false);
     await mongoose
@@ -39,5 +39,7 @@ async function start() {
   } catch (error) {
     console.log(error);
   }
-}
+};
 start();
+
+export default start;

@@ -24,7 +24,10 @@ export const getMyCargo = async (req, res) => {
   }
 };
 export const repeatMyCargo = async (req, res) => {
-  console.log(req.body);
+  console.log("req body", req.body);
+  const myData = {
+    cargoIds: req.body,
+  };
   try {
     const config = {
       headers: {
@@ -34,10 +37,9 @@ export const repeatMyCargo = async (req, res) => {
       },
     };
     await axios
-      .post("/proposals/my/repeat", config, req.body)
+      .post("/proposals/my/repeat", config, JSON.stringify(myData))
       .then((response) => {
-        console.log(response);
-        res.json(response.data);
+        res.json(response);
       })
       .catch((error) => {
         console.error(error);
