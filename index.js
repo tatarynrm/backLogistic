@@ -4,17 +4,11 @@ import * as dotenv from "dotenv";
 import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import cors from "cors";
-import http from "http";
-import request from "request";
-// import checkAuth from "./middleware/checkAuth.js";
-// import connectDB from "./mongoDB/connect.js";
-// import { createNote } from "./controllers/notes.js";
-// import { register, login, getMe } from "./controllers/auth.js";
 import authRoutes from "./routes/auth.js";
 import notesRouter from "./routes/notes.js";
 import userRoutes from "./routes/user.js";
 import cargoRoutes from "./ExternalAPI/Lardi-Trans/routes/cargo.js";
-import axios from "axios";
+// import axios from "axios";
 
 const app = express();
 
