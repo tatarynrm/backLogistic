@@ -1,7 +1,8 @@
 dotenv.config();
 import mongoose from "mongoose";
-import { Telegraf } from "telegraf";
 import dotenv from "dotenv";
+
+import { Telegraf } from "telegraf";
 const bot = new Telegraf(process.env.BOT_TOKEN);
 
 import Notes from "./models/Notes.js";
