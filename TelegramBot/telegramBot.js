@@ -5,11 +5,11 @@ import dotenv from "dotenv";
 import { Telegraf } from "telegraf";
 const bot = new Telegraf(process.env.BOT_TOKEN);
 
-import Notes from "./models/Notes.js";
+import Notes from "../models/Notes.js";
 
 const start = async () => {
   try {
-    mongoose.set("strictQuery", false);
+    await mongoose.set("strictQuery", false);
     await mongoose.connect(process.env.MONGODB_URL, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
@@ -34,11 +34,9 @@ bot.command("start", async (ctx) => {
 
 bot.hears("Заявки в процесі", async (ctx) => {
   const newNote = await Notes.find({ status: "active" });
-
   await ctx.replyWithHTML(`Заявок: ${newNote.length}`);
   for (let i = 0; i < newNote.length; i++) {
     const element = newNote[i];
-
     ctx.replyWithHTML(
       `${
         element.date
@@ -83,7 +81,6 @@ bot.hears("Заявки не оплачені", async (ctx) => {
   console.log(newNote);
   for (let i = 0; i < newNote.length; i++) {
     const element = newNote[i];
-
     ctx.replyWithHTML(
       `${
         element.date
@@ -95,6 +92,7 @@ bot.hears("Заявки не оплачені", async (ctx) => {
     );
   }
 });
+
 bot.help((ctx) => ctx.reply("Send me a sticker"));
 bot.on("sticker", (ctx) => ctx.reply("👍"));
 bot.hears("hi", (ctx) => ctx.reply("Hey there"));
