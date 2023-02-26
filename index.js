@@ -77,7 +77,10 @@ const noteStatus = [
 for (let i = 0; i < noteStatus.length; i++) {
   const element = noteStatus[i];
   bot.hears(element.title, async (ctx) => {
-    if (adminRights(ctx)) {
+    if (
+      ctx.message.from.id === 1240153142 ||
+      ctx.message.from.id === 282039969
+    ) {
       const newNote = await Notes.find({ status: `${element.status}` });
       await ctx.replyWithHTML(`Заявок: ${newNote.length}`);
       for (let i = 0; i < newNote.length; i++) {
