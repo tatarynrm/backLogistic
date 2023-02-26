@@ -7,7 +7,7 @@
   "scripts": {
     "start": "node --experimental-modules index.js",
     "dev": "nodemon index.js",
-    "safestart": "node --experimental-modules index.js && node --experimental-modules telegramBot.js",
+    "safestart": "node --experimental-modules index.js",
     "bot": "node --experimental-modules telegramBot.js"
   },
   "author": "",

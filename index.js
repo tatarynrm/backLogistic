@@ -111,6 +111,16 @@ bot.hears("Дохід", async (ctx) => {
   }
 });
 
+bot.hears("Погода", async (ctx) => {
+  const chatId = ctx.message.chat.id; // the ID of the chat where the message was sent
+  const messageId = ctx.message.message_id; // the ID of the message to forward
+  // ctx.forwardMessage(chatId, messageId);
+  // ctx.editMessageReplyMarkup()
+  const message = ctx.message.text;
+  const response = `You said "${message}". I'm just a bot, so I don't have much to say in response. But I'm here if you need me!`;
+  ctx.reply(response);
+});
+
 bot.launch();
 
 // Enable graceful stop
