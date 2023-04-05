@@ -128,41 +128,41 @@ process.once("SIGINT", () => bot.stop("SIGINT"));
 process.once("SIGTERM", () => bot.stop("SIGTERM"));
 // Telegram BOT END-----------------------------------------------------------------------------------------
 
-app.get("/google-sheets", async (req, res) => {
-  const auth = new google.auth.GoogleAuth({
-    keyFile: "credentials.json",
-    scopes: "https://www.googleapis.com/auth/spreadsheets",
-  });
-  // CREATE CLIENT INSTANCE FOR AUTH
-  const client = await auth.getClient();
+// app.get("/google-sheets", async (req, res) => {
+//   const auth = new google.auth.GoogleAuth({
+//     keyFile: "credentials.json",
+//     scopes: "https://www.googleapis.com/auth/spreadsheets",
+//   });
+//   // CREATE CLIENT INSTANCE FOR AUTH
+//   const client = await auth.getClient();
 
-  // INSTANCE OF GOOGLE SHEETS API
-  const googleSheets = google.sheets({ version: "v4", auth: client });
+//   // INSTANCE OF GOOGLE SHEETS API
+//   const googleSheets = google.sheets({ version: "v4", auth: client });
 
-  // GET METADATA ABOUT SPREADSHEETS
-  const spreadsheetId = "105NLgXKjiwTxCxtfK0mJi5DS6Cxi9XAjIV8P2EnyozU";
-  const metaData = googleSheets.spreadsheets.get({
-    auth,
-    spreadsheetId,
-  });
-  // READ ROWS
-  const getRows = await googleSheets.spreadsheets.values.get({
-    auth,
-    spreadsheetId,
-    range: "logistic",
-  });
+//   // GET METADATA ABOUT SPREADSHEETS
+//   const spreadsheetId = "105NLgXKjiwTxCxtfK0mJi5DS6Cxi9XAjIV8P2EnyozU";
+//   const metaData = googleSheets.spreadsheets.get({
+//     auth,
+//     spreadsheetId,
+//   });
+//   // READ ROWS
+//   const getRows = await googleSheets.spreadsheets.values.get({
+//     auth,
+//     spreadsheetId,
+//     range: "logistic",
+//   });
 
-  // WRITE ROWS(S) TO SPREADSHEET
-  googleSheets.spreadsheets.values.append({
-    auth,
-    spreadsheetId,
-    range: "logistic",
+//   // WRITE ROWS(S) TO SPREADSHEET
+//   googleSheets.spreadsheets.values.append({
+//     auth,
+//     spreadsheetId,
+//     range: "logistic",
 
-    valueInputOption: "RAW",
-    resource: {
-      values: [["111111111111", "1111111111111", "VALERAAAAAAAAAAAA"]],
-    },
-  });
+//     valueInputOption: "RAW",
+//     resource: {
+//       values: [["111111111111", "1111111111111", "VALERAAAAAAAAAAAA"]],
+//     },
+//   });
 
-  res.send(getRows.data);
-});
+//   res.send(getRows.data);
+// });
