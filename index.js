@@ -10,9 +10,12 @@ import userRoutes from "./routes/user.js";
 import cargoRoutes from "./ExternalAPI/Lardi-Trans/routes/cargo.js";
 import { Telegraf } from "telegraf";
 
+// google
+import { google } from "googleapis";
 import Notes from "./models/Notes.js";
 import { adminRights } from "./TelegramBot/botPermissions.js";
 import { botStart } from "./TelegramBot/botCommands.js";
+import axios from "axios";
 const app = express();
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
@@ -85,6 +88,10 @@ for (let i = 0; i < noteStatus.length; i++) {
       await ctx.replyWithHTML(`Заявок: ${newNote.length}`);
       for (let i = 0; i < newNote.length; i++) {
         const element = newNote[i];
+        if (newNote.length > 5) {
+          ctx.replyWithHTML(`Занадто велика кількість заявок для відображення`);
+          return;
+        }
         ctx.replyWithHTML(
           `${
             element.date
@@ -120,3 +127,42 @@ bot.launch();
 process.once("SIGINT", () => bot.stop("SIGINT"));
 process.once("SIGTERM", () => bot.stop("SIGTERM"));
 // Telegram BOT END-----------------------------------------------------------------------------------------
+
+app.get("/google-sheets", async (req, res) => {
+  const auth = new google.auth.GoogleAuth({
+    keyFile: "credentials.json",
+    scopes: "https://www.googleapis.com/auth/spreadsheets",
+  });
+  // CREATE CLIENT INSTANCE FOR AUTH
+  const client = await auth.getClient();
+
+  // INSTANCE OF GOOGLE SHEETS API
+  const googleSheets = google.sheets({ version: "v4", auth: client });
+
+  // GET METADATA ABOUT SPREADSHEETS
+  const spreadsheetId = "105NLgXKjiwTxCxtfK0mJi5DS6Cxi9XAjIV8P2EnyozU";
+  const metaData = googleSheets.spreadsheets.get({
+    auth,
+    spreadsheetId,
+  });
+  // READ ROWS
+  const getRows = await googleSheets.spreadsheets.values.get({
+    auth,
+    spreadsheetId,
+    range: "logistic",
+  });
+
+  // WRITE ROWS(S) TO SPREADSHEET
+  googleSheets.spreadsheets.values.append({
+    auth,
+    spreadsheetId,
+    range: "logistic",
+
+    valueInputOption: "RAW",
+    resource: {
+      values: [["111111111111", "1111111111111", "VALERAAAAAAAAAAAA"]],
+    },
+  });
+
+  res.send(getRows.data);
+});
